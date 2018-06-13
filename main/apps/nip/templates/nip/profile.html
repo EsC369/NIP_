@@ -66,10 +66,12 @@
             </div>
 			<div class="whole">
 	<div class="left_side">
+		{% if request.session.id == user.id %}
 			<form action="/edit/{{user.id}}" method=POST>
 				{% csrf_token %}
 				<input type="submit" value="Edit Profile" class="button btn-left">
 			</form>
+			{% endif %}
 		<h3>{{user.first_name|title}} {{user.last_name|title}}</h3>
 		<img src="{{user.image}}" class="main_img">
 
