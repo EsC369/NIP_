@@ -12,7 +12,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	
-	<title>Ninja Profile: {{user.first_name|title}}</title>
+	<title>Ninja Profile: {{user.first_name|title}} {{user.last_name | title}}</title>
 	<style>
 	 .left-LOGO1{
         margin: -55px 0px 0px -35px;
@@ -26,6 +26,8 @@
     height: 65px;
 	}
 	.main_img{
+		border: 1px solid black;
+		border-radius: 100px;
 		margin-top: 20px;
 		margin-left: 60px;
 		margin-bottom: 5px;
@@ -36,11 +38,26 @@
 		font-size: 2em;
 		margin: 50px 10px 10px 65px;
 	}
-	.content{
+	.content, .strengths{
 		margin: 40px 0 0 75px;
 	}
-	.strengths{
-		margin: 40px 0 0 75px;
+	.content h4 {
+		font-size: 1.3em;
+	}
+	.content a {
+		text-decoration: none;
+		color: black;
+	}
+	.content p{
+		font-size: 1em;
+		margin-left: 20px;
+	}
+	.strengths h3{
+		font-size: 1.3em;
+	}
+	.strengths ol{
+		font-size: 1em;
+		margin-left: 20px;
 	}
 	.whole{
 		margin: 0 0 0 0;
@@ -73,31 +90,39 @@
 			</form>
 			{% endif %}
 		<h3>{{user.first_name|title}} {{user.last_name|title}}</h3>
-		<img src="{{user.image}}" class="main_img">
+		<img src="{{user.image}}" class="main_img" />
 
 		<div class="content">
-		<p>My socials:</p>
-		<a href="mailto:{{user.email}}">{{user.email|title}}</a>
+		<h4>You can find {{user.first_name | title}} at:</h4>
 		<br>
-		<a href="{{user.linkedin}}">linkedin</a> <br>
-		<a href="{{user.github}}">{{user.github|title}}</a> <br>
+		<p><a href="mailto:{{user.email}}">{{user.email}}</a></p>
+		<br>
+		<p><a href="{{user.linkedin}}">LinkedIn</a></p>
+		<br>
+		<p><a href="{{user.github}}">Github</a></p>
+			<br>
 		{% if user.facebook %}
-		<a href="{{user.facebook}}">{{user.facebook|title}}</a> <br>
+		<p><a href="{{user.facebook}}">Facebook</a></p>
+			<br>
 		{% endif %}
 		{% if user.instagram %}
-		<a href="{{user.instagram}}">{{user.instagram|title}}</a> <br>
+		<p><a href="{{user.instagram}}">Instagram</a></p>
+			 <br>
 		{% endif %}
 		{% if user.slack %}
-		<a href="{{user.slack}}">Slack</a> <br>
+		<p><a href="{{user.slack}}">Slack</a></p>
+			<br>
 		{% endif %}
 	</div>
 	</div>
 	{% if user.strengths %}
 		<div class="strengths">
 			<h3>Strengths</h3>
+			<br>
 			<ol>
 			{% for strength in user.strengths.all %}
 				<li>{{strength.name}}</li>
+				<br>
 			{% endfor %}
 			</ol>
 		</div>
