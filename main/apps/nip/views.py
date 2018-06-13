@@ -53,6 +53,7 @@ def socials(request):
 	print request.session['id']
 	return render(request, 'nip/registration.html')
 
+
 def socials_process(request):
 	errors = {}
 	if len(request.POST['linkedin']) < 1:

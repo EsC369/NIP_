@@ -21,6 +21,9 @@
             float: right;
             margin-right: 100px;
     }
+	.btn{
+		float: left;
+	}
     .header1{
     margin: 0px 0 0 0;
     height: 65px;
@@ -125,6 +128,10 @@
 				<br>
 			{% endfor %}
 			</ol>
+			<form action="/strengths" method=POST>
+				{% csrf_token %}
+				<input type="submit" value="Edit Strengths" class="button btn">
+			</form>
 		</div>
 	{% endif %}
 </div>
