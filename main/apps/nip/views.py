@@ -1,4 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
+from django.db.models import Value
+from django.db.models.functions import Concat
 from models import *
 import bcrypt
 import re
@@ -46,6 +48,15 @@ def strength(request):
 		'stacks': Stack.objects.all()
 		}
 	return render(request, 'nip/strengths.html', context)
+
+def strength_edit(request, id):
+	user = User.objects.filter(id=id)
+	context = {
+		'user':User.objects.get(id=id),
+		'stacks': Stack.objects.all()
+		}
+	
+	return render(request, 'nip/strengths_edit.html', context)	
 
 def socials(request):
 	if not 'id' in request.session:
@@ -99,7 +110,19 @@ def process(request):
 		user = User.objects.get(id=request.session["id"])
 		strengths = request.POST.getlist('sCheck')
 		for num in strengths:
-			print 1
+			print "++++++++"
+			print num
+			user.strengths.add(num)	 
+		return redirect('/home')
+
+def process_edit(request):
+	if request.method == "POST":
+		user = User.objects.get(id=request.session["id"])
+		strengths = request.POST.getlist('sCheck')
+		user.strengths = []
+		for num in strengths:
+			print "*********"
+			print num
 			user.strengths.add(num)	 
 		return redirect('/home')
 
@@ -116,9 +139,13 @@ def user_search(request):
 def searching_user(request):
 	if not 'id' in request.session:
 		return redirect('/')
+	queryset = User.objects.annotate(search_name=Concat('first_name', Value(' '), 'last_name'))
+	results = queryset.filter(search_name__icontains=request.POST["user_search"].lower())
+
 	context = {
 		'searches': request.POST['user_search'],
-		'results': User.objects.filter(first_name__icontains=request.POST['user_search'].lower())
+		'results': results,
+		# 'count': results.count()
 	}
 
 	return render(request, 'nip/user_result.html', context)

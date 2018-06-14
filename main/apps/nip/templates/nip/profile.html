@@ -118,22 +118,30 @@
 		{% endif %}
 	</div>
 	</div>
-	{% if user.strengths %}
+	
 		<div class="strengths">
 			<h3>Strengths</h3>
 			<br>
+			{% if not user.strengths.all %}
+			<p>You do not have any strengths!</p>
+			<br>
+			<form action="/strengths/{{user.id}}" method=POST>
+				{% csrf_token %}
+				<input type="submit" value="Add Strengths" class="button btn">
+			</form>
+			{% else %}
 			<ol>
 			{% for strength in user.strengths.all %}
 				<li>{{strength.name}}</li>
 				<br>
 			{% endfor %}
 			</ol>
-			<form action="/strengths" method=POST>
+			<form action="/strengths/{{user.id}}" method=POST>
 				{% csrf_token %}
 				<input type="submit" value="Edit Strengths" class="button btn">
 			</form>
-		</div>
 	{% endif %}
+</div>
 </div>
 </body>
 </html>

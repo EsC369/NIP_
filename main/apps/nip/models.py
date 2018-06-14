@@ -61,7 +61,7 @@ class Stack(models.Model):
    created_at = models.DateTimeField(auto_now_add = True)
    updated_at = models.DateTimeField(auto_now = True)
    def __repr__(self):
-       return "<Stack object: {}, {}>".format(self.student, self.name)
+       return "<Stacks: {}(student), {}(name)>".format(self.student, self.name)
 
 
 class Skill(models.Model):
@@ -71,5 +71,5 @@ class Skill(models.Model):
    language = models.ForeignKey(Stack, related_name='skills')
    user = models.ManyToManyField(User, related_name="strengths")
    def __repr__(self):
-       return "<Skill object: {} {}, {}>".format(self.name, self.language, self.user)
+       return "<Skill: {} (name), {} (language), {} (user)>".format(self.name, self.language, self.user)
 

@@ -91,6 +91,7 @@
             <p class="search_result"> <a href="user.profile">Sample Sampleton</a>
             <button type="submit" class="email" name="email">Email</button>
         </div> -->
+        {% if results %}
         {% for profile in results %}
         <div class="search_result">
             <img class="profile_pic" src="{{profile.image}}" alt="profile_pic">
@@ -100,8 +101,15 @@
             <form action="mailto:{{profile.email}}?subject=Interested in connecting - fellow ninja!">
             <input name="mail" value="Email" type="submit" class="button">
             </form>
+            {% endfor %}
+            {% else %}
+            <br>
+            <h3>Sorry, your search yielded no results. Search again!</h3>
+           
+            {% endif %}
         </div>
-        {% endfor %}
+       
+       
     </div>
     </div>
 </body>

@@ -56,20 +56,20 @@
 
 	<div class="main_content-2">
 		<h3>Ninjas who can help you with {{skill}}</h3>
+		<br>
+		{% if users %}
+		{% for user in users %}
 		<div class="results">
-			{% for user in users %}
 			<div >
 				<img class="profile_pic" src="{{user.image}}" alt="profile_pic">
 				<a href="/profile/{{user.id}}" class="link">{{user.first_name|title}} {{user.last_name|title}}</a>
-				
 			</div>
 			{% endfor %}
+			{% else %}
+            <br>
+            <h3>Sorry, your search yielded no results. Search again!</h3>
+			{% endif %}
 		</div>
-			<!-- <div class="search_result">
-				<img class="profile_pic"src="http://www.thelaunchpod.com/wp-content/uploads/2015/02/circular-headshot-.png">
-				<p>{NAME}</p>
-				<a href="#">Contact</a>
-			</div> -->
 	
 </body>
 </html>
